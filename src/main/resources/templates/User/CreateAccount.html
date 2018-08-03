@@ -5,13 +5,21 @@
     <title></title>
 </head>
 <body>
+    <p th:text="${error}"></p>
     <form method="post" action="/bestcampsite/createAccount/" th:object="${user}">
-        <label th:for="username">Username</label>
-        <input th:value="${username}" th:field="*{username}"/>
-        <label th:for="password">Password</label>
-        <input type="password" th:field="*{password}"/>
-        <label th:for="verify">Verify Password</label>
-        <input type="password" name="verify" />
+        <div>
+            <label th:for="username">Username</label>
+            <input th:value="${username}" th:field="*{username}"/>
+        </div>
+        <div>
+            <label th:for="password">Password</label>
+            <input type="password" th:field="*{password}"/>
+        </div>
+        <div>
+            <label th:for="verify">Verify Password</label>
+            <input type="password" name="verify" />
+        </div>
+
         <input type="submit" value="Submit" />
     </form>
 
