@@ -1,22 +1,29 @@
 package com.bestcampsite.bestcampsite.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue
+    @Column(name = "user_id")
     private int id;
 
-    @NotNull
+    @NotEmpty
+    @Column(name = "username")
     private String username;
 
-    @NotNull
+    @NotEmpty
+    @Column(name = "password")
     private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     //TODO Add fields for campgrounds and campsites
 
@@ -47,5 +54,13 @@ public class User {
         this.password = password;
     }
 
-    //TODO Add Campground/Campsite getters/setters
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+//TODO Add Campground/Campsite getters/setters
 }

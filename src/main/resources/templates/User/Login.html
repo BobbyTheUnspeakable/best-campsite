@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+    <form method="post" action="/bestcampsite/" th:object="${user}">
+        <table>
+            <tr>
+                <td><label th:for="username">Username</label></td>
+                <td>
+                    <input name="username" th:field="*{username}" />
+                </td>
+            </tr>
+            <tr>
+                <td><label th:for="password">Password</label></td>
+                <td>
+                    <input type="password" name="password" th:field="*{password}" />
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Login" />
+    </form>
+</body>
+</html>
