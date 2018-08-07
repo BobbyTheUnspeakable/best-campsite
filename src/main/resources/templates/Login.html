@@ -5,22 +5,20 @@
     <title></title>
 </head>
 <body>
+<h1>Best Campsite</h1>
     <form method="post" action="/bestcampsite/" th:object="${user}">
         <table>
             <tr>
                 <td><label th:for="username">Username</label></td>
-                <td>
-                    <input name="username" th:field="*{username}" />
-                </td>
+                <td><input name="username" th:field="*{username}" /></td>
             </tr>
             <tr>
                 <td><label th:for="password">Password</label></td>
-                <td>
-                    <input type="password" name="password" th:field="*{password}" />
-                </td>
+                <td><input type="password" name="password" th:field="*{password}" /></td>
             </tr>
         </table>
         <input type="submit" value="Login" />
     </form>
+    <a href="bestcampsite/createAccount">Create Account</a>
 </body>
 </html>
