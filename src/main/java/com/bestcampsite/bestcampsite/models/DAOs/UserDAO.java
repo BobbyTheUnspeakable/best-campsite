@@ -9,6 +9,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserDAO extends JpaRepository<User, Integer> {//CrudRepository<User, Integer> {
+public interface UserDAO extends JpaRepository<User, Long> {
     User findByUsername(String username);
 }

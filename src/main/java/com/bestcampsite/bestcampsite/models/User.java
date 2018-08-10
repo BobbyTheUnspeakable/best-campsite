@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -13,13 +14,16 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
-    @NotEmpty
+    @NotEmpty(message = "Please provide a username.")
     @Column(name = "username")
     private String username;
 
-    @NotEmpty
+    @NotEmpty(message = "Please provide a password.")
     @Column(name = "password")
     private String password;
+
+    @Column(name = "active")
+    private int active;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -38,6 +42,10 @@ public class User {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -52,6 +60,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public Set<Role> getRoles() {

@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 @Service("userService")
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDAO userDAO;
@@ -34,12 +34,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void saveUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role userRole = roleDAO.findByRole("ADMIN");
+        user.setActive(1);
+        Role userRole = roleDAO.findByRole("ADMIN");//TODO potentially "USER"
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userDAO.save(user);
     }
 
-    @Override
+    /*@Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         User user = userDAO.findByUsername(username);
@@ -59,5 +60,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
-    }
+    }*/
 }

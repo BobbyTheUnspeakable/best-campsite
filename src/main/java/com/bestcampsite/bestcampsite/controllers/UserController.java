@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("bestcampsite")
+@RequestMapping(value ="bestcampsite")
 public class UserController {
 
     @Autowired
@@ -25,47 +25,49 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping("")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String login(Model model){
-        model.addAttribute(new User());
+        User user = new User();
+        model.addAttribute(user);
         return "Login";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    /*@RequestMapping(value = "", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam String username,
                                @RequestParam String password){
         UserDetails user = userService.loadUserByUsername(username);
         /** Take the username and feed if to userService
          * If the given username doesn't throw an exception validate the password
          * If the username does throw an exception reload the form with error message
-         */
-        //if(password != user.getPassword()){ }
-        return "Search";
-    }
 
-    @RequestMapping(value = "createAccount")
+        if(password != user.getPassword()){ }
+        return "Search";
+    }*/
+
+    @RequestMapping(value = "createAccount", method = RequestMethod.GET)
     public String createAccount(Model model){
        User user = new User();
         model.addAttribute(user);
        return "CreateAccount";
     }
 
-    /*@RequestMapping(value = "createAccount")
-    public String addUser(@Valid templates user, BindingResult bindingResult){
-        templates existingUser = userService.findUserByUsername(user.getUsername());
+    @RequestMapping(value = "createAccount", method = RequestMethod.POST)
+    public String addUser(@Valid User user, BindingResult bindingResult, Model model){
+        User existingUser = userService.findUserByUsername(user.getUsername());
         if(existingUser != null){
-            bindingResult.rejectValue("username","error.user",
-                    "Someone beat you to that Username!");
+            bindingResult.rejectValue("username", "error.username",
+                                    "There is already a user with that name.");
         }
         if(bindingResult.hasErrors()){
-            return "templates/CreateAccount";
+            return "CreateAccount";
         } else {
             userService.saveUser(user);
-            return "templates/Login"; //TODO Change this to the search page when built
+            model.addAttribute("user", new User());
         }
-    }*/
+        return "Search";
+    }
 
-    @RequestMapping(value = "createAccount", method = RequestMethod.POST)
+    /*@RequestMapping(value = "createAccount", method = RequestMethod.POST)
     public String add(Model model, @ModelAttribute User user, String verify){
         if(user.getPassword().equals(verify)){
             User newUser = new User();
@@ -78,5 +80,10 @@ public class UserController {
             model.addAttribute("error", "Passwords do not match");
             return "CreateAccount";
         }
+    }*/
+
+    @RequestMapping(value = "search")
+        public String search(Model model){
+            return "Search";
     }
 }

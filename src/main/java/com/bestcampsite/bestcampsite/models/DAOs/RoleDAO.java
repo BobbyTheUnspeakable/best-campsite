@@ -9,6 +9,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface RoleDAO extends JpaRepository<Role, Integer>{//CrudRepository<Role, InternalError> {
+public interface RoleDAO extends JpaRepository<Role, Integer>{
     Role findByRole(String role);
 }

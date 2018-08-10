@@ -1,6 +1,7 @@
 package com.bestcampsite.bestcampsite.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,35 +13,46 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    private DataSource dataSource;
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-        throws Exception{
-        auth
-                .userDetailsService(userDetailsService)
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception{
 
-        http.
-                authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/bestcampsite").permitAll()
                 .antMatchers("/bestcampsite/search").permitAll()
                 .antMatchers("/bestcampsite/createAccount").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/bestcampsite").failureUrl("/bestcampsite/createAccount")
-                .defaultSuccessUrl("/bestcampsite")
+                .loginPage("/bestcampsite").failureUrl("/bestcampsite?error=true")
+                .defaultSuccessUrl("/bestcampsite/search")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout()
@@ -56,9 +68,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
 }
