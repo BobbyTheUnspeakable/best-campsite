@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bestcampsite/createAccount").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/bestcampsite").failureUrl("/bestcampsite?error=true")
+                .loginPage("/bestcampsite").failureUrl("/bestcampsite")
                 .defaultSuccessUrl("/bestcampsite/search")
                 .usernameParameter("username")
                 .passwordParameter("password")

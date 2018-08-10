@@ -4,6 +4,8 @@ import com.bestcampsite.bestcampsite.models.DAOs.UserDAO;
 import com.bestcampsite.bestcampsite.models.User;
 import com.bestcampsite.bestcampsite.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +29,39 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String login(Model model){
-        User user = new User();
-        model.addAttribute(user);
+        //User user = new User();
+        //model.addAttribute(user);
+        String cookie = userCookie();
+        model.addAttribute("user", cookie);
+        model.addAttribute("loginStatus", checkLoginStatus(cookie));
         return "Login";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    public User authUser(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUsername(authentication.getName());
+        return user;
+    }
+
+    public String userCookie(){
+        String cookie = "";
+        User authUser = authUser();
+        if(authUser != null){
+            cookie = authUser.getUsername();
+        }
+        return cookie;
+    }
+
+    public boolean checkLoginStatus(String userCookie){
+        boolean loggedInStatus = false;
+        if(!userCookie.equals("")){
+            loggedInStatus = true;
+        }
+        return loggedInStatus;
+    }
+
+    /*@RequestMapping(value = "", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam String username,
                                @RequestParam String password){
         User user = userService.findUserByUsername(username);
@@ -40,7 +69,7 @@ public class UserController {
             return "Login";
         }
         return "Search";
-    }
+    }*/
 
     @RequestMapping(value = "createAccount", method = RequestMethod.GET)
     public String createAccount(Model model){
