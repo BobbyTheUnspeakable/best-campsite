@@ -32,17 +32,15 @@ public class UserController {
         return "Login";
     }
 
-    /*@RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String processLogin(Model model, @RequestParam String username,
                                @RequestParam String password){
-        UserDetails user = userService.loadUserByUsername(username);
-        /** Take the username and feed if to userService
-         * If the given username doesn't throw an exception validate the password
-         * If the username does throw an exception reload the form with error message
-
-        if(password != user.getPassword()){ }
+        User user = userService.findUserByUsername(username);
+        if(password.equals(user.getPassword())){
+            return "Login";
+        }
         return "Search";
-    }*/
+    }
 
     @RequestMapping(value = "createAccount", method = RequestMethod.GET)
     public String createAccount(Model model){
@@ -66,21 +64,6 @@ public class UserController {
         }
         return "Search";
     }
-
-    /*@RequestMapping(value = "createAccount", method = RequestMethod.POST)
-    public String add(Model model, @ModelAttribute User user, String verify){
-        if(user.getPassword().equals(verify)){
-            User newUser = new User();
-            newUser.setUsername(user.getUsername());
-            newUser.setPassword(user.getPassword());
-            userDAO.save(newUser);
-            return "Search";
-        } else {
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("error", "Passwords do not match");
-            return "CreateAccount";
-        }
-    }*/
 
     @RequestMapping(value = "search")
         public String search(Model model){
