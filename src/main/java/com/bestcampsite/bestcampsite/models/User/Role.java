@@ -1,4 +1,4 @@
-package com.bestcampsite.bestcampsite.models;
+package com.bestcampsite.bestcampsite.models.User;
 
 import javax.persistence.*;
 

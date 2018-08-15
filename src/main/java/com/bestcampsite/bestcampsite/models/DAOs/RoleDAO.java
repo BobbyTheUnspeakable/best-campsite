@@ -1,6 +1,6 @@
 package com.bestcampsite.bestcampsite.models.DAOs;
 
-import com.bestcampsite.bestcampsite.models.Role;
+import Role;
 //import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

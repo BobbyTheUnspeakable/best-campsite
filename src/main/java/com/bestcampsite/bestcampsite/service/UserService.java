@@ -1,6 +1,6 @@
 package com.bestcampsite.bestcampsite.service;
 
-import com.bestcampsite.bestcampsite.models.User;
+import com.bestcampsite.bestcampsite.models.User.User;
 
 public interface UserService {
     public User findUserByUsername(String username);
