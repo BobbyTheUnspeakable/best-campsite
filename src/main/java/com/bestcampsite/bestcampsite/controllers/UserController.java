@@ -29,8 +29,6 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String login(Model model){
-        //User user = new User();
-        //model.addAttribute(user);
         String cookie = userCookie();
         model.addAttribute("user", cookie);
         model.addAttribute("loginStatus", checkLoginStatus(cookie));
@@ -61,16 +59,6 @@ public class UserController {
         return loggedInStatus;
     }
 
-    /*@RequestMapping(value = "", method = RequestMethod.POST)
-    public String processLogin(Model model, @RequestParam String username,
-                               @RequestParam String password){
-        User user = userService.findUserByUsername(username);
-        if(password.equals(user.getPassword())){
-            return "Login";
-        }
-        return "Search";
-    }*/
-
     @RequestMapping(value = "createAccount", method = RequestMethod.GET)
     public String createAccount(Model model){
        User user = new User();
@@ -90,6 +78,9 @@ public class UserController {
         } else {
             userService.saveUser(user);
             model.addAttribute("user", new User());
+            String cookie = userCookie();
+            model.addAttribute("user", cookie);
+            model.addAttribute("loginStatus", checkLoginStatus(cookie));
         }
         return "Search";
     }
