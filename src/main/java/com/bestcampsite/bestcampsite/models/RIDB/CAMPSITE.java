@@ -12,7 +12,7 @@ public class CAMPSITE {
 
     private PERMITEQUIP[] PERMITTEDEQUIPMENT;
 
-    private transient ENTITYMEDIA;
+    private transient ENTITYMEDIA[] ENTITYMEDIA;
 
     private String Loop;
 
@@ -39,11 +39,11 @@ public class CAMPSITE {
         CampsiteID = campsiteID;
     }
 
-    public ATTRIBUTE<Array> getATTRIBUTES() {
+    public ATTRIBUTE[] getATTRIBUTES() {
         return ATTRIBUTES;
     }
 
-    public void setATTRIBUTES(ATTRIBUTE<Array> ATTRIBUTES) {
+    public void setATTRIBUTES(ATTRIBUTE[] ATTRIBUTES) {
         this.ATTRIBUTES = ATTRIBUTES;
     }
 
@@ -55,12 +55,20 @@ public class CAMPSITE {
         CreatedDate = createdDate;
     }
 
-    public PERMITEQUIP<Array> getPERMITTEDEQUIPMENT() {
+    public PERMITEQUIP[] getPERMITTEDEQUIPMENT() {
         return PERMITTEDEQUIPMENT;
     }
 
-    public void setPERMITTEDEQUIPMENT(PERMITEQUIP<Array> PERMITTEDEQUIPMENT) {
+    public void setPERMITTEDEQUIPMENT(PERMITEQUIP[] PERMITTEDEQUIPMENT) {
         this.PERMITTEDEQUIPMENT = PERMITTEDEQUIPMENT;
+    }
+
+    public com.bestcampsite.bestcampsite.models.RIDB.ENTITYMEDIA[] getENTITYMEDIA() {
+        return ENTITYMEDIA;
+    }
+
+    public void setENTITYMEDIA(com.bestcampsite.bestcampsite.models.RIDB.ENTITYMEDIA[] ENTITYMEDIA) {
+        this.ENTITYMEDIA = ENTITYMEDIA;
     }
 
     public String getLoop() {

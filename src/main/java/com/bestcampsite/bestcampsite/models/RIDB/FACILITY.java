@@ -12,19 +12,19 @@ public class FACILITY {
 
     private GEOJSON GEOJSON;
 
-    private transient EVENT[];
+    private transient EVENT[] EVENT;
 
     private ORGANIZATION[] ORGANIZATION;
 
     private String FacilityTypeDescription;
 
-    private transient PERMITENTRANCE[];
+    private transient PERMITENTRANCE[] PERMITENTRANCE;
 
     private int FacilityID;
 
     private String FacilityReservationURL;
 
-    private transient MEDIA[];
+    private transient ENTITYMEDIA[] MEDIA;
 
     private LINK[] LINK;
 
@@ -58,7 +58,7 @@ public class FACILITY {
 
     private ACTIVITY[] ACTIVITY;
 
-    private transient TOUR[];
+    private transient TOUR[] TOUR;
 
     public FACILITY() {
     }
@@ -253,5 +253,37 @@ public class FACILITY {
 
     public void setACTIVITY(ACTIVITY[] ACTIVITY) {
         this.ACTIVITY = ACTIVITY;
+    }
+
+    public com.bestcampsite.bestcampsite.models.RIDB.EVENT[] getEVENT() {
+        return EVENT;
+    }
+
+    public void setEVENT(com.bestcampsite.bestcampsite.models.RIDB.EVENT[] EVENT) {
+        this.EVENT = EVENT;
+    }
+
+    public com.bestcampsite.bestcampsite.models.RIDB.PERMITENTRANCE[] getPERMITENTRANCE() {
+        return PERMITENTRANCE;
+    }
+
+    public void setPERMITENTRANCE(com.bestcampsite.bestcampsite.models.RIDB.PERMITENTRANCE[] PERMITENTRANCE) {
+        this.PERMITENTRANCE = PERMITENTRANCE;
+    }
+
+    public ENTITYMEDIA[] getMEDIA() {
+        return MEDIA;
+    }
+
+    public void setMEDIA(ENTITYMEDIA[] MEDIA) {
+        this.MEDIA = MEDIA;
+    }
+
+    public com.bestcampsite.bestcampsite.models.RIDB.TOUR[] getTOUR() {
+        return TOUR;
+    }
+
+    public void setTOUR(com.bestcampsite.bestcampsite.models.RIDB.TOUR[] TOUR) {
+        this.TOUR = TOUR;
     }
 }
