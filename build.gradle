@@ -30,6 +30,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.security:spring-security-core')
 	compile('net.sourceforge.nekohtml:nekohtml:1.9.22')
+	compile('com.google.code.gson:gson'
+	)
 
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')

@@ -28,6 +28,8 @@ public class CAMPSITE {
 
     private String LastUpdatedDate;
 
+    private String ResourceLink;
+
     public CAMPSITE() {
     }
 
@@ -125,5 +127,13 @@ public class CAMPSITE {
 
     public void setLastUpdatedDate(String lastUpdatedDate) {
         LastUpdatedDate = lastUpdatedDate;
+    }
+
+    public String getResourceLink() {
+        return ResourceLink;
+    }
+
+    public void setResourceLink(String resourceLink) {
+        ResourceLink = resourceLink;
     }
 }

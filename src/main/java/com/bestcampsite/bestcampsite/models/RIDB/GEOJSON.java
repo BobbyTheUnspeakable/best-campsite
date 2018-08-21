@@ -4,7 +4,7 @@ public class GEOJSON {
 
     private String TYPE;
 
-    private int[] COORDINATES;
+    private float[] COORDINATES;
 
     public GEOJSON() {
     }
@@ -17,11 +17,11 @@ public class GEOJSON {
         this.TYPE = TYPE;
     }
 
-    public int[] getCOORDINATES() {
+    public float[] getCOORDINATES() {
         return COORDINATES;
     }
 
-    public void setCOORDINATES(int[] COORDINATES) {
+    public void setCOORDINATES(float[] COORDINATES) {
         this.COORDINATES = COORDINATES;
     }
 }

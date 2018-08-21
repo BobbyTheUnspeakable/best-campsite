@@ -2,7 +2,7 @@ package com.bestcampsite.bestcampsite.service;
 
 import com.bestcampsite.bestcampsite.models.DAOs.RoleDAO;
 import com.bestcampsite.bestcampsite.models.DAOs.UserDAO;
-import Role;
+import com.bestcampsite.bestcampsite.models.User.Role;
 import com.bestcampsite.bestcampsite.models.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

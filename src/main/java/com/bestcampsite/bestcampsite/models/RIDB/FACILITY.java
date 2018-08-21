@@ -30,13 +30,13 @@ public class FACILITY {
 
     private String StayLimit;
 
-    private int FacilityLongitude;
+    private float FacilityLongitude;
 
     private CAMPSITE[] CAMPSITE;
 
     private String FacilityEmail;
 
-    private int FacilityLatitude;
+    private float FacilityLatitude;
 
     private int LegacyFacilityID;
 
@@ -143,11 +143,11 @@ public class FACILITY {
         StayLimit = stayLimit;
     }
 
-    public int getFacilityLongitude() {
+    public float getFacilityLongitude() {
         return FacilityLongitude;
     }
 
-    public void setFacilityLongitude(int facilityLongitude) {
+    public void setFacilityLongitude(float facilityLongitude) {
         FacilityLongitude = facilityLongitude;
     }
 
@@ -167,11 +167,11 @@ public class FACILITY {
         FacilityEmail = facilityEmail;
     }
 
-    public int getFacilityLatitude() {
+    public float getFacilityLatitude() {
         return FacilityLatitude;
     }
 
-    public void setFacilityLatitude(int facilityLatitude) {
+    public void setFacilityLatitude(float facilityLatitude) {
         FacilityLatitude = facilityLatitude;
     }
 
