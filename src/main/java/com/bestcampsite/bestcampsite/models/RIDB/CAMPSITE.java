@@ -1,7 +1,5 @@
 package com.bestcampsite.bestcampsite.models.RIDB;
 
-import java.lang.reflect.Array;
-
 public class CAMPSITE {
 
     private int CampsiteID;
