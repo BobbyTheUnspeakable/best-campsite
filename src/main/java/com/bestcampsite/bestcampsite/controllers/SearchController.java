@@ -1,24 +1,16 @@
 package com.bestcampsite.bestcampsite.controllers;
 
-import com.bestcampsite.bestcampsite.models.DAOs.UserDAO;
 import com.bestcampsite.bestcampsite.models.RIDB.CAMPSITE;
 import com.bestcampsite.bestcampsite.models.RIDB.RECDATA;
 import com.bestcampsite.bestcampsite.models.RIDB.SEARCH_RESULTS;
-import com.bestcampsite.bestcampsite.models.User.User;
-import com.bestcampsite.bestcampsite.service.UserServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,85 +18,22 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Collection;
 
-@Controller
-@RequestMapping(value ="bestcampsite")
-public class UserController {
+public class SearchController {
 
-    @Autowired
-    private UserDAO userDAO;
+    private static String stateSearchURL = "https://ridb.recreation.gov/api/v1/facilities.json?activity=9&full=true&sort=name&state=";
+    private static String nameSearchURL = "https://ridb.recreation.gov/api/v1/facilities.json?activity=9&full=true&query=";
+    private static String keyParam = "&apikey=C8644A72609A4DFE80B4A35D177BB582";
+    private static Gson gson = new Gson();
+    private String state;
+    private String searchTerm;
+    private String facilityJsonDecoded;
+    private String facilityJson;
 
-    @Autowired
-    private UserServiceImpl userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String login(Model model){
-        String cookie = userCookie();
-        model.addAttribute("user", cookie);
-        model.addAttribute("loginStatus", checkLoginStatus(cookie));
-        return "Login";
-    }
-
-    public User authUser(){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByUsername(authentication.getName());
-        return user;
-    }
-
-    public String userCookie(){
-        String cookie = "";
-        User authUser = authUser();
-        if(authUser != null){
-            cookie = authUser.getUsername();
-        }
-        return cookie;
-    }
-
-    public boolean checkLoginStatus(String userCookie){
-        boolean loggedInStatus = false;
-        if(!userCookie.equals("")){
-            loggedInStatus = true;
-        }
-        return loggedInStatus;
-    }
-
-    @RequestMapping(value = "createAccount", method = RequestMethod.GET)
-    public String createAccount(Model model){
-       User user = new User();
-        model.addAttribute(user);
-       return "CreateAccount";
-    }
-
-    @RequestMapping(value = "createAccount", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult bindingResult, Model model){
-        User existingUser = userService.findUserByUsername(user.getUsername());
-        if(existingUser != null){
-            bindingResult.rejectValue("username", "error.username",
-                                    "There is already a user with that name.");
-        }
-        if(bindingResult.hasErrors()){
-            return "CreateAccount";
-        } else {
-            userService.saveUser(user);
-            model.addAttribute("user", new User());
-            String cookie = userCookie();
-            model.addAttribute("user", cookie);
-            model.addAttribute("loginStatus", checkLoginStatus(cookie));
-        }
-        return "redirect:/bestcampsite/search";
-    }
-    @RequestMapping(value = "search", method = RequestMethod.GET)
-    public String search(Model model){
-        return "Search";
-    }
-
-    @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String processSearch(Model model, String state, String keyword) throws IOException{
-        //SEARCH_RESULTS searchResults = readBySearchTerms(state, keyword);
-        //Collection<CAMPSITE> searchResults = readByCampsiteID("https://ridb.recreation.gov//api//v1//facilities//234442//campsites//9816.json?&apikey=C8644A72609A4DFE80B4A35D177BB582");
-        RECDATA searchResults = readByFacilityID(234442);
-        return"Search";
-    }
+    //@RequestMapping(value = "search")
+    //public String search(Model model){
+    //    return "Search";
+    //}
 
     public SEARCH_RESULTS readBySearchTerms(String state, String keyword) throws IOException {
 
@@ -185,8 +114,9 @@ public class UserController {
         return facility;
     }
 
+    //TODO it works for now may need to change parameter from URL to facilityID and campsiteID
     public Collection<CAMPSITE> readByCampsiteID(String URL) throws IOException {
-        String baseURL = "https://ridb.recreation.gov/api/v1/facilities/"; //TODO change URLs to CAMPSITE.ResourceLink
+        String baseURL = "https://ridb.recreation.gov/api/v1/facilities/";
         String endURL = ".json?full=true&apikey=C8644A72609A4DFE80B4A35D177BB582";
         Gson gson = new Gson();
         String campsiteJsonDecoded = "";
@@ -213,8 +143,48 @@ public class UserController {
         ridbCall.disconnect();
 
         Type collectionType = new TypeToken<Collection<CAMPSITE>>(){}.getType();
-        Collection<CAMPSITE> campsite = gson.fromJson(campsiteJson, collectionType);
+        Collection<CAMPSITE> campsiteResults = gson.fromJson(campsiteJson, collectionType);
 
-        return campsite;
+        return campsiteResults;
     }
+
+    @RequestMapping(value = "campground/{facilityId}", method = RequestMethod.GET)
+    public String campground(Model model, @PathVariable int facilityId){
+        return "Stuff";
+    }
+
+    /*
+    So as far as searches go a User should be able to search facilities by;
+    NAME: https://ridb.recreation.gov/api/v1/facilities.json?activity=9&full=true&query=akers
+    STATE: https://ridb.recreation.gov/api/v1/facilities.json?activity=9&full=true&sort=name&state=MO
+    If a result set is larger than 50 I'll have to append the request with the appropriate offset=50/100/150 etc.
+    All api request will be ended with the param "&apikey=C8644A72609A4DFE80B4A35D177BB582"
+    The last parameter in each request is what the user would put into the search bar
+
+    Then no matter the search query I'll have to pull the FacilityID and use it for the next request
+    which will be a link to the individual campground page
+    CAMPGROUND: https://ridb.recreation.gov/api/v1/facilities/234442.json?full=true
+                                                                ID^
+    The returned object will have pertinent information about the campground
+    it will also have embedded api requests for the individual campsites
+    CAMPSITE: https://ridb.recreation.gov//api//v1//facilities//234442//campsites//9816.json
+
+    Perhaps I should build a helper class(es) for JSON parsing?
+    Have all my use cases for the search function in it:
+        Search by State
+        Search by Keyword
+        Search by Both
+    If I do go that route then the logic would look something like:
+    if(state = "" && keyword = null) send an error message
+    if(state != "" && keyword != null) send request with both query params
+    if(state = "" && keyword != null) send request with keyword query
+    if(state != "" && keyword = null) send request with state query
+    I'll also most likely have to include a test on the metadata in order to offset large responses
+
+    so long as there are no errors I'll have an array of FACILITY objects
+    I can handle most of the looping for the table in thymeleaf and the things I'll need are:
+    FacilityId, FacilityName, and eventually (hopefully) GEOJSON.
+
+     */
+
 }
