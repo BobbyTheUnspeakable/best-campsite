@@ -100,10 +100,18 @@ public class UserController {
 
     @RequestMapping(value = "search", method = RequestMethod.POST)
     public String processSearch(Model model, String state, String keyword) throws IOException{
-        //SEARCH_RESULTS searchResults = readBySearchTerms(state, keyword);
+
+        SEARCH_RESULTS searchResults = readBySearchTerms(state, keyword);
         //Collection<CAMPSITE> searchResults = readByCampsiteID("https://ridb.recreation.gov//api//v1//facilities//234442//campsites//9816.json?&apikey=C8644A72609A4DFE80B4A35D177BB582");
-        RECDATA searchResults = readByFacilityID(234442);
+        //RECDATA searchResults = readByFacilityID(234442);
+        //model.addAttribute("searchResults", searchResults);
+
         return"Search";
+    }
+
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String home(Model model){
+        return "Home";
     }
 
     public SEARCH_RESULTS readBySearchTerms(String state, String keyword) throws IOException {

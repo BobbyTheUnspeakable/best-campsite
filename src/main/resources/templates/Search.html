@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8"/>
     <title></title>
+    <!--<script type="text/javascript">
+        button.on("click", function(){
+        var state = $("#state-selector").val();
+        var keyword = $("#keyword").val();
+        alert(`${state} : ${keyword}`);
+          $.ajax({
+            type: "GET",
+            url: `https://ridb.recreation.gov/api/v1/facilities.json?activity=9&full=true&sort=name${(state != null && state != "") ? "&state=" + state : ""}${(keyword != null && keyword != "") ? "&query=" + keyword : ""}&apikey=C8644A72609A4DFE80B4A35D177BB582`,
+            success: function (result) {
+                var recdata = result.RECDATA[0];
+              var myStuff = {
+                desc: recdata.FacilityDescription,
+                fascId: recdata.FacilityID,
+                facName: recdata.FacilityName
+              };
+              alert(myStuff.desc);
+              alert(myStuff.fascId);
+              alert(myStuff.facName);
+            }
+          });
+          banner.addClass("alt")
+        });
+    </script>-->
 </head>
 <body>
-    <p>This is the future home of the campground search</p>
+<nav th:replace="fragments :: navigation"></nav>
     <form method="post" action="/bestcampsite/search">
     <select name="state">
         <option value="">Select State</option>
