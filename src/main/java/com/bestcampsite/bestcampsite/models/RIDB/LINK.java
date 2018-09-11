@@ -2,7 +2,7 @@ package com.bestcampsite.bestcampsite.models.RIDB;
 
 public class LINK {
 
-    private int EntityID;
+    private transient String EntityID;
 
     private String Description;
 
@@ -10,7 +10,7 @@ public class LINK {
 
     private String Title;
 
-    private int EntityLinkID;
+    private transient String EntityLinkID;
 
     private String EntityType;
 
@@ -19,11 +19,11 @@ public class LINK {
     public LINK() {
     }
 
-    public int getEntityID() {
+    public String getEntityID() {
         return EntityID;
     }
 
-    public void setEntityID(int entityID) {
+    public void setEntityID(String entityID) {
         EntityID = entityID;
     }
 
@@ -51,11 +51,11 @@ public class LINK {
         Title = title;
     }
 
-    public int getEntityLinkID() {
+    public String getEntityLinkID() {
         return EntityLinkID;
     }
 
-    public void setEntityLinkID(int entityLinkID) {
+    public void setEntityLinkID(String entityLinkID) {
         EntityLinkID = entityLinkID;
     }
 

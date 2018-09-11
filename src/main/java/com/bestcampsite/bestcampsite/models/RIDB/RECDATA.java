@@ -4,29 +4,29 @@ public class RECDATA {
 
     private String FacilityDescription;
 
-    private String FacilityUseFeeDescription;
+    private transient String FacilityUseFeeDescription;
 
-    private String FacilityMapURL;
+    private transient String FacilityMapURL;
 
     private GEOJSON GEOJSON;
 
     private transient EVENT[] EVENT;
 
-    private ORGANIZATION[] ORGANIZATION;
+    private transient ORGANIZATION[] ORGANIZATION;
 
-    private String FacilityTypeDescription;
+    private transient String FacilityTypeDescription;
 
     private transient PERMITENTRANCE[] PERMITENTRANCE;
 
     private int FacilityID;
 
-    private String FacilityReservationURL;
+    private transient String FacilityReservationURL;
 
     private transient ENTITYMEDIA[] MEDIA;
 
-    private LINK[] LINK;
+    private transient LINK[] LINK;
 
-    private String StayLimit;
+    private transient String StayLimit;
 
     private float FacilityLongitude;
 
@@ -36,17 +36,17 @@ public class RECDATA {
 
     private float FacilityLatitude;
 
-    private int LegacyFacilityID;
+    private transient String LegacyFacilityID;
 
-    private String OrgFacilityID;
+    private transient String OrgFacilityID;
 
     private FACILITYADDRESS[] FACILITYADDRESS;
 
     private String FacilityName;
 
-    private String LastUpdatedDate;
+    private transient String LastUpdatedDate;
 
-    private String FacilityAdaAccess;
+    private transient String FacilityAdaAccess;
 
     private String FacilityDirections;
 
@@ -173,11 +173,11 @@ public class RECDATA {
         FacilityLatitude = facilityLatitude;
     }
 
-    public int getLegacyFacilityID() {
+    public String getLegacyFacilityID() {
         return LegacyFacilityID;
     }
 
-    public void setLegacyFacilityID(int legacyFacilityID) {
+    public void setLegacyFacilityID(String legacyFacilityID) {
         LegacyFacilityID = legacyFacilityID;
     }
 

@@ -2,7 +2,7 @@ package com.bestcampsite.bestcampsite.models.RIDB;
 
 public class EVENT {
 
-    private int EntityID;
+    private transient String EntityID;
 
     private String EntityType;
 
@@ -22,7 +22,7 @@ public class EVENT {
 
     private String EventFrequencyRateDescription;
 
-    private int EventID;
+    private transient String EventID;
 
     private String EventName;
 
@@ -55,11 +55,11 @@ public class EVENT {
     public EVENT() {
     }
 
-    public int getEntityID() {
+    public String getEntityID() {
         return EntityID;
     }
 
-    public void setEntityID(int entityID) {
+    public void setEntityID(String entityID) {
         EntityID = entityID;
     }
 
@@ -135,11 +135,11 @@ public class EVENT {
         EventFrequencyRateDescription = eventFrequencyRateDescription;
     }
 
-    public int getEventID() {
+    public String getEventID() {
         return EventID;
     }
 
-    public void setEventID(int eventID) {
+    public void setEventID(String eventID) {
         EventID = eventID;
     }
 

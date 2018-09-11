@@ -14,7 +14,7 @@ public class FACILITYADDRESS {
 
     private String FacilityStreetAddress2;
 
-    private int FacilityAddressID;
+    private transient String FacilityAddressID;
 
     private String FacilityStreetAddress1;
 
@@ -73,11 +73,11 @@ public class FACILITYADDRESS {
         FacilityStreetAddress2 = facilityStreetAddress2;
     }
 
-    public int getFacilityAddressID() {
+    public String getFacilityAddressID() {
         return FacilityAddressID;
     }
 
-    public void setFacilityAddressID(int facilityAddressID) {
+    public void setFacilityAddressID(String facilityAddressID) {
         FacilityAddressID = facilityAddressID;
     }
 

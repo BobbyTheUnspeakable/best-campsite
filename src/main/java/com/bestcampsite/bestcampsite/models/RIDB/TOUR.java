@@ -12,9 +12,9 @@ public class TOUR {
 
     private String TourDescription;
 
-    private int TourDuration;
+    private transient String TourDuration;
 
-    private int TourID;
+    private transient String TourID;
 
     private String TourName;
 
@@ -63,19 +63,19 @@ public class TOUR {
         TourDescription = tourDescription;
     }
 
-    public int getTourDuration() {
+    public String getTourDuration() {
         return TourDuration;
     }
 
-    public void setTourDuration(int tourDuration) {
+    public void setTourDuration(String tourDuration) {
         TourDuration = tourDuration;
     }
 
-    public int getTourID() {
+    public String getTourID() {
         return TourID;
     }
 
-    public void setTourID(int tourID) {
+    public void setTourID(String tourID) {
         TourID = tourID;
     }
 

@@ -2,7 +2,7 @@ package com.bestcampsite.bestcampsite.models.RIDB;
 
 public class ORGANIZATION {
 
-    private int OrgID;
+    private transient String OrgID;
 
     private String OrgImageURL;
 
@@ -16,18 +16,18 @@ public class ORGANIZATION {
 
     private String OrgJurisdictionType;
 
-    private int OrgParentID;
+    private transient String OrgParentID;
 
     private String LastUpdatedDate;
 
     public ORGANIZATION() {
     }
 
-    public int getOrgID() {
+    public String getOrgID() {
         return OrgID;
     }
 
-    public void setOrgID(int orgID) {
+    public void setOrgID(String orgID) {
         OrgID = orgID;
     }
 
@@ -79,11 +79,11 @@ public class ORGANIZATION {
         OrgJurisdictionType = orgJurisdictionType;
     }
 
-    public int getOrgParentID() {
+    public String getOrgParentID() {
         return OrgParentID;
     }
 
-    public void setOrgParentID(int orgParentID) {
+    public void setOrgParentID(String orgParentID) {
         OrgParentID = orgParentID;
     }
 

@@ -8,13 +8,13 @@ public class ENTITYMEDIA {
 
     private transient String EmbedCode;
 
-    private int EntityID;
+    private transient String EntityID;
 
-    private int EntityMediaID;
+    private transient String EntityMediaID;
 
     private String EntityType;
 
-    private int Height;
+    private transient String Height;
 
     private String MediaType;
 
@@ -24,7 +24,7 @@ public class ENTITYMEDIA {
 
     private String URL;
 
-    private int Width;
+    private transient String Width;
 
     public ENTITYMEDIA() {
     }
@@ -53,19 +53,19 @@ public class ENTITYMEDIA {
         EmbedCode = embedCode;
     }
 
-    public int getEntityID() {
+    public String getEntityID() {
         return EntityID;
     }
 
-    public void setEntityID(int entityID) {
+    public void setEntityID(String entityID) {
         EntityID = entityID;
     }
 
-    public int getEntityMediaID() {
+    public String getEntityMediaID() {
         return EntityMediaID;
     }
 
-    public void setEntityMediaID(int entityMediaID) {
+    public void setEntityMediaID(String entityMediaID) {
         EntityMediaID = entityMediaID;
     }
 
@@ -77,11 +77,11 @@ public class ENTITYMEDIA {
         EntityType = entityType;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return Height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         Height = height;
     }
 
@@ -117,11 +117,11 @@ public class ENTITYMEDIA {
         this.URL = URL;
     }
 
-    public int getWidth() {
+    public String getWidth() {
         return Width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(String width) {
         Width = width;
     }
 }

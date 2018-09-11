@@ -4,7 +4,7 @@ public class METADATA {
 
     private RESULTS results;
 
-    private SEARCH_PARAMETERS search_parameters;
+    private transient  SEARCH_PARAMETERS search_parameters;
 
     public METADATA() {
     }

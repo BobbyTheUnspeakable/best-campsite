@@ -6,19 +6,19 @@ public class PERMITENTRANCE {
 
     private String District;
 
-    private int FacilityID;
+    private transient String FacilityID;
 
     private String LastUpdatedDate;
 
-    private int Latitude;
+    private transient String Latitude;
 
-    private int Longitude;
+    private transient String Longitude;
 
     private String PermitEntranceAccessible;
 
     private String PermitEntranceDescription;
 
-    private int PermitEntranceID;
+    private transient String PermitEntranceID;
 
     private String PermitEntranceName;
 
@@ -45,11 +45,11 @@ public class PERMITENTRANCE {
         District = district;
     }
 
-    public int getFacilityID() {
+    public String getFacilityID() {
         return FacilityID;
     }
 
-    public void setFacilityID(int facilityID) {
+    public void setFacilityID(String facilityID) {
         FacilityID = facilityID;
     }
 
@@ -61,19 +61,19 @@ public class PERMITENTRANCE {
         LastUpdatedDate = lastUpdatedDate;
     }
 
-    public int getLatitude() {
+    public String getLatitude() {
         return Latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(String latitude) {
         Latitude = latitude;
     }
 
-    public int getLongitude() {
+    public String getLongitude() {
         return Longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(String longitude) {
         Longitude = longitude;
     }
 
@@ -93,11 +93,11 @@ public class PERMITENTRANCE {
         PermitEntranceDescription = permitEntranceDescription;
     }
 
-    public int getPermitEntranceID() {
+    public String getPermitEntranceID() {
         return PermitEntranceID;
     }
 
-    public void setPermitEntranceID(int permitEntranceID) {
+    public void setPermitEntranceID(String permitEntranceID) {
         PermitEntranceID = permitEntranceID;
     }
 
