@@ -88,5 +88,17 @@
     </form>
 
     <!--TODO build the loop and table to display the results -->
+
+<div  th:each="facility : ${results}">
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>
+            <a th:href="'campground/' + ${facility.FacilityID}" th:text="${facility.FacilityName}"></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -103,10 +104,22 @@ public class UserController {
 
         SEARCH_RESULTS searchResults = readBySearchTerms(state, keyword);
         //Collection<CAMPSITE> searchResults = readByCampsiteID("https://ridb.recreation.gov//api//v1//facilities//234442//campsites//9816.json?&apikey=C8644A72609A4DFE80B4A35D177BB582");
-        //RECDATA searchResults = readByFacilityID(234442);
-        //model.addAttribute("searchResults", searchResults);
+
+        RECDATA[] recdataSearchResults = searchResults.getRECDATA();
+
+        model.addAttribute("results", recdataSearchResults);
 
         return"Search";
+    }
+
+    @RequestMapping(value = "campground/{facilityID}", method = RequestMethod.GET)
+    public String getCampground(Model model, @PathVariable int facilityID) throws IOException{
+
+        RECDATA facility = readByFacilityID(facilityID);
+
+        model.addAttribute("facility", facility);
+
+        return "Campground";
     }
 
     @RequestMapping(value = "home", method = RequestMethod.GET)
