@@ -103,7 +103,6 @@ public class UserController {
     public String processSearch(Model model, String state, String keyword) throws IOException{
 
         SEARCH_RESULTS searchResults = readBySearchTerms(state, keyword);
-        //Collection<CAMPSITE> searchResults = readByCampsiteID("https://ridb.recreation.gov//api//v1//facilities//234442//campsites//9816.json?&apikey=C8644A72609A4DFE80B4A35D177BB582");
 
         RECDATA[] recdataSearchResults = searchResults.getRECDATA();
 
@@ -116,10 +115,22 @@ public class UserController {
     public String getCampground(Model model, @PathVariable int facilityID) throws IOException{
 
         RECDATA facility = readByFacilityID(facilityID);
+        CAMPSITE[] campsites = facility.getCAMPSITE();
 
+        model.addAttribute("campsites", campsites);
         model.addAttribute("facility", facility);
 
         return "Campground";
+    }
+
+    @RequestMapping(value = "campground/{facilityID}/campsite/{campsiteID}", method = RequestMethod.GET)
+    public String getCampground(Model model, @PathVariable int facilityID, @PathVariable int campsiteID) throws IOException{
+
+        Collection<CAMPSITE> campsite = readByCampsiteID(facilityID, campsiteID);
+
+        model.addAttribute("campsite", campsite);
+
+        return "Campsite";
     }
 
     @RequestMapping(value = "home", method = RequestMethod.GET)
@@ -206,15 +217,15 @@ public class UserController {
         return facility;
     }
 
-    public Collection<CAMPSITE> readByCampsiteID(String URL) throws IOException {
-        String baseURL = "https://ridb.recreation.gov/api/v1/facilities/"; //TODO change URLs to CAMPSITE.ResourceLink
+    public Collection<CAMPSITE> readByCampsiteID(int facilityID, int campsiteID) throws IOException {
+        String baseURL = "https://ridb.recreation.gov/api/v1/facilities/";
         String endURL = ".json?full=true&apikey=C8644A72609A4DFE80B4A35D177BB582";
         Gson gson = new Gson();
         String campsiteJsonDecoded = "";
         String campsiteJson = "";
 
         HttpsURLConnection ridbCall = (HttpsURLConnection)
-                (new URL(URL)).openConnection();
+                (new URL(baseURL + facilityID + "/campsites/" + campsiteID + endURL)).openConnection();
 
         ridbCall.setRequestProperty("Content-Type", "application/json");
         ridbCall.setRequestProperty("Accept", "application/json");

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <title></title>
 </head>
 <body>
 <nav th:replace="fragments :: navigation"></nav>
-<p>This is the future home of the campground page!</p>
+
+<p th:text="${facility.FacilityName}"></p>
+<p th:text="${facility.FacilityDescription}"></p>
+
+
+<ol th:each="campsite : ${campsites}">
+    <li>
+    <a th:href="${facility.FacilityID} + '/campsite/' + ${campsite.CampsiteID}" th:text="${campsite.CampsiteName}"></a>
+    <input type="radio" name="rating" value="Love">Love</br>
+    <input type="radio" name="rating" value="Hate">Hate</br>
+    </li>
+</ol>
 
 </body>
 </html>
